@@ -1,0 +1,23 @@
+diff --git a/Makefile b/Makefile
+index 05bdf4b..c91830e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -10,7 +10,7 @@ BINARIES := $(EXECUTABLES-y) $(LIBRARIES-y)
+ 
+ INSTALL = install
+ CPPFLAGS += -Iinclude -I..
+-CXXFLAGS += -std=c++11 -O3 -Wall -Werror -fPIC
++CXXFLAGS += -std=c++11 -O3 -Wall -Werror -fPIC -I /usr/lib/jvm/java-8-openjdk-amd64/include/ -I /usr/lib/jvm/java-8-openjdk-amd64/include/linux/ -I abseil-cpp -I .
+ 
+ DESTDIR ?=
+ PREFIX = /usr
+@@ -43,7 +43,8 @@ bsdiff_src_files := \
+     patch_writer.cc \
+     patch_writer_factory.cc \
+     split_patch_writer.cc \
+-    suffix_array_index.cc
++    suffix_array_index.cc \
++    bsdiff_jni.cc
+ 
+ # "bspatch" program.
+ bspatch_src_files := \
