@@ -1,15 +1,17 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-rc2'
+        classpath 'com.android.tools.build:gradle:3.2.0'
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
+        mavenCentral()
+        google()
     }
 }
 
@@ -22,5 +24,31 @@ subprojects {
     dependencies {
         testCompile "com.google.truth:truth:0.44"
         implementation "com.google.code.findbugs:jsr305:3.0.2"
+    }
+
+    apply plugin: 'maven-publish'
+
+    group = 'eu.pokemmo.archivepatcher'
+    version = '2.0.0'
+
+    task sourcesJar(type: Jar) {
+        from sourceSets.main.allJava
+        archiveClassifier = 'sources'
+    }
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.java
+                artifact sourcesJar
+            }
+        }
+        repositories {
+            maven {
+                def releasesRepoUrl = "../build/repos/releases"
+                def snapshotsRepoUrl = "../build/repos/snapshots"
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            }
+        }
     }
 }
