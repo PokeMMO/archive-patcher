@@ -1,4 +1,6 @@
 #!/bin/bash
+apt install libbz2-dev libbrotli-dev libdivsufsort-dev -y
+
 git clone --depth 1 https://android.googlesource.com/platform/external/bsdiff
 
 cp bsdiff_jni.cc bsdiff/
